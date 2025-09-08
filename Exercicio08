@@ -1,0 +1,5 @@
+nota1 = int(input(' Qual a Sua nota? '))
+nota2 = int(input( 'Qual a sua segunda nota? '))
+soma = nota1 + nota2
+resultado = soma /2
+print('Sua Media é',resultado)
