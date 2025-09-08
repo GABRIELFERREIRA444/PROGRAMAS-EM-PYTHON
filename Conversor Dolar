@@ -1,0 +1,4 @@
+reais = float(input("Quanto você tem na carteira (em R$)? "))
+cotacao = 5.42
+dolares = reais / cotacao
+print(f"Você tem R$ {reais:.2f}, o que equivale a US$ {dolares:.2f}")
