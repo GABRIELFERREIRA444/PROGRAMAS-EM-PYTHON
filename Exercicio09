@@ -1,0 +1,3 @@
+n1 = int(input(' Digite um numero '))
+print('ele tem',n1 * 100,'cm')
+print('ele tem',n1 * 1000,'mm')     
