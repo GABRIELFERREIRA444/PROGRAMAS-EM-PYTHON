@@ -1,0 +1,13 @@
+# Solicita um número inteiro positivo ao usuário
+numero = int(input("Digite um número inteiro positivo: "))
+
+# Verifica se o número é positivo
+if numero > 0:
+    print(f"Números pares até {numero}:")
+    # Laço for que percorre de 1 até o número informado
+    for i in range(1, numero + 1):
+        # Verifica se o número é par
+        if i % 2 == 0:
+            print(i)
+else:
+    print("Por favor, insira um número inteiro positivo.")
