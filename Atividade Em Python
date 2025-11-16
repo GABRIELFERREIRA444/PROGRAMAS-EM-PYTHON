@@ -1,0 +1,104 @@
+# ============================================================
+# ARA0066 – Paradigmas de Linguagens de Programação em Python
+# Trabalho Avaliativo: Sistema de Biblioteca (POO)
+# Professor: Fausto Feitosa
+# Aluno: <caua richard de lima batista>
+# Matrícula: <202502488998>
+# Versão do Python: 3.10
+# ============================================================
+
+# Classe base -------------------------------------------------
+class Publicacao:
+    def _init_(self, titulo: str, autor: str, ano_publicacao: int):
+        self.titulo = titulo
+        self.autor = autor
+        self.ano_publicacao = ano_publicacao
+
+    def exibir_info(self):
+        return f"Título: {self.titulo} | Autor: {self.autor} | Ano: {self.ano_publicacao}"
+
+
+# Subclasse: Livro --------------------------------------------
+class Livro(Publicacao):
+    def _init_(self, titulo: str, autor: str, ano_publicacao: int, isbn: str):
+        super()._init_(titulo, autor, ano_publicacao)
+        self.isbn = isbn
+
+    def exibir_info(self):
+        return f"[LIVRO] {super().exibir_info()} | ISBN: {self.isbn}"
+
+
+# Subclasse: manga ------------------------------------------
+class manga(Publicacao):
+    def _init_(self, titulo: str, autor: str, ano_publicacao: int):
+        super()._init_(titulo, autor, ano_publicacao)
+
+    def exibir_info(self):
+        return f"[manga] {super().exibir_info()}"
+
+
+# Subclasse adicional: Quadrinho -------------------------------
+class Quadrinho(Publicacao):
+    def _init_(self, titulo: str, autor: str, ano_publicacao: int, ilustrador: str):
+        super()._init_(titulo, autor, ano_publicacao)
+        self.ilustrador = ilustrador
+
+    def exibir_info(self):
+        return f"[QUADRINHO] {super().exibir_info()} | Ilustrador: {self.ilustrador}"
+
+
+# Classe Biblioteca (Agregação) -------------------------------
+class Biblioteca:
+    def _init_(self, nome: str):
+        self.nome = nome
+        self.publicacoes = []  # lista de objetos Publicacao
+
+    def adicionar_publicacao(self, pub: Publicacao):
+        self.publicacoes.append(pub)
+        print(f" Publicação '{pub.titulo}' adicionada à biblioteca.")
+
+    def remover_publicacao_por_titulo(self, titulo: str):
+        for pub in self.publicacoes:
+            if pub.titulo.lower() == titulo.lower():
+                self.publicacoes.remove(pub)
+                print(f" Publicação '{titulo}' removida com sucesso.")
+                return
+        print(f" Publicação '{titulo}' não encontrada.")
+
+    def listar_publicacoes(self):
+        print(f"\n Lista de publicações na biblioteca '{self.nome}':")
+        for pub in self.publicacoes:
+            print(pub.exibir_info())  # Polimorfismo em ação
+        print("----------------------------------------------------")
+
+
+# ===================== DEMONSTRAÇÃO ==========================
+
+if _name_ == "_main_":
+    # Criação das publicações
+    p1 = Livro("O Hobbit", "J.R.R. Tolkien", 1937, "978-0000001")
+    p2 = Livro("Dom Casmurro", "Machado de Assis", 1899, "978-0000002")
+    p3 = manga("black clover", "Yūki Tabata", 2015,)
+    p4 = manga("dragon ball", "akira toriyama", 1984,)
+    p5 = Quadrinho("Batman: Ano Um", "Frank Miller", 1987, "David Mazzucchelli")
+    p6 = Quadrinho("Homem-Aranha Azul", "Jeph Loeb", 2002, "Tim Sale")
+    p7 = Livro("A Revolução dos Bichos", "George Orwell", 1945, "978-0000003")
+    p8 = manga("Gachiakuta", "Kei Urana", 2022,)
+    p9 = Livro("It: A Coisa", "Stephen King", 1986, "978-0000004")
+    p10 = Quadrinho("Sandman", "Neil Gaiman", 1990, "Sam Kieth")
+
+    # Criando biblioteca
+    biblioteca = Biblioteca("Biblioteca Central de Arton")
+
+    # Adicionando publicações
+    for pub in [p1,p2,p3,p4,p5,p6,p7,p8,p9,p10]:
+        biblioteca.adicionar_publicacao(pub)
+
+    # Listando todas
+    biblioteca.listar_publicacoes()
+
+    # Removendo uma publicação
+    biblioteca.remover_publicacao_por_titulo("It: A Coisa")
+
+    # Listando novamente
+    biblioteca.listar_publicacoes()
